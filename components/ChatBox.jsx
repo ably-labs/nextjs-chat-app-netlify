@@ -8,19 +8,16 @@ export default function ChatBox() {
 
   const [messageText, setMessageText] = useState('');
   const [messages, setMessages] = useState([]);
-  const [reactions, setReactions] = useState([]);
   const messageTextIsEmpty = messageText.trim().length === 0;
 
   const { send: sendMessage } = useMessages({
     listener: (payload) => {
       const newMessage = payload.message;
       setMessages((prevMessages) => {
-        // Skip duplicates
         if (prevMessages.some((existingMessage) => existingMessage.isSameAs(newMessage))) {
           return prevMessages;
         }
 
-        // Find insertion index based on message ordering
         const index = prevMessages.findIndex((existingMessage) => existingMessage.after(newMessage));
 
         const newMessages = [...prevMessages];
@@ -40,9 +37,7 @@ export default function ChatBox() {
       return;
     }
     try {
-      // send via Ably Chat SDK
       await sendMessage({ text });
-      // clear out the textarea and restore focus
       setMessageText('');
       inputBox.current?.focus();
     } catch (error) {
@@ -56,7 +51,6 @@ export default function ChatBox() {
   };
 
   const handleKeyPress = (event) => {
-    // only send on plain Enter (not Shift+Enter)
     if (event.key !== 'Enter' || event.shiftKey) {
       return;
     }
