@@ -1,5 +1,9 @@
 import Head from 'next/head';
-import Chat from '../components/Chat.jsx';
+import dynamic from 'next/dynamic';
+
+const Chat = dynamic(() => import('../components/Chat'), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
