@@ -6,7 +6,7 @@ import { ChatClientProvider, ChatRoomProvider } from '@ably/chat/react';
 import ChatBox from './ChatBox.jsx';
 
 const roomOptions = {
-  history: { limit: 50 }
+  history: { limit: 50 },
 };
 
 export default function Chat() {
