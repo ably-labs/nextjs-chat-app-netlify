@@ -1,8 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  experimental: {
-    serverComponentsExternalPackages: ['ably'],
-  },
-};
+const nextConfig = {};
 
 export default nextConfig;
