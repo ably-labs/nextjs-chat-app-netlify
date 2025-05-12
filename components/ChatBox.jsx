@@ -2,18 +2,16 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useMessages } from '@ably/chat/react';
 import styles from './ChatBox.module.css';
 
-
 export default function ChatBox() {
-    const inputBox = useRef(null);
-    const messageEndRef = useRef(null);
+  const inputBox = useRef(null);
+  const messageEndRef = useRef(null);
 
+  const [messageText, setMessageText] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [reactions, setReactions] = useState([]);
+  const messageTextIsEmpty = messageText.trim().length === 0;
 
-const [messageText, setMessageText] = useState('');
-const [messages, setMessages] = useState([]);
-const [reactions, setReactions] = useState([]);
-const messageTextIsEmpty = messageText.trim().length === 0;
-
-const { send: sendMessage } = useMessages({
+  const { send: sendMessage } = useMessages({
     listener: (payload) => {
       const newMessage = payload.message;
       setMessages((prevMessages) => {
@@ -21,12 +19,10 @@ const { send: sendMessage } = useMessages({
         if (prevMessages.some((existingMessage) => existingMessage.isSameAs(newMessage))) {
           return prevMessages;
         }
-  
+
         // Find insertion index based on message ordering
-        const index = prevMessages.findIndex((existingMessage) =>
-          existingMessage.after(newMessage)
-        );
-  
+        const index = prevMessages.findIndex((existingMessage) => existingMessage.after(newMessage));
+
         const newMessages = [...prevMessages];
         if (index === -1) {
           newMessages.push(newMessage);
@@ -53,12 +49,12 @@ const { send: sendMessage } = useMessages({
       console.error('Error sending message:', error);
     }
   };
-  
+
   const handleFormSubmission = (event) => {
     event.preventDefault();
     sendChatMessage(messageText);
   };
-  
+
   const handleKeyPress = (event) => {
     // only send on plain Enter (not Shift+Enter)
     if (event.key !== 'Enter' || event.shiftKey) {
@@ -67,7 +63,7 @@ const { send: sendMessage } = useMessages({
     event.preventDefault();
     sendChatMessage(messageText);
   };
-  
+
   const messageElements = messages.map((message, index) => {
     const key = message.serial ?? index;
     return (
@@ -77,7 +73,7 @@ const { send: sendMessage } = useMessages({
     );
   });
 
-useEffect(() => {
+  useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 

@@ -7,7 +7,7 @@ import ChatBox from './ChatBox.jsx';
 
 const roomOptions = {
   history: { limit: 50 },
-  reactions: {}
+  reactions: {},
 };
 
 export default function Chat() {
