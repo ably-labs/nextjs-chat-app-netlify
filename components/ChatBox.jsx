@@ -37,7 +37,7 @@ export default function ChatBox() {
       return;
     }
     try {
-      await sendMessage({ text });
+      await sendMessage({ text: text });
       setMessageText('');
       inputBox.current?.focus();
     } catch (error) {
