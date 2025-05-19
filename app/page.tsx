@@ -1,17 +1,8 @@
-import Head from 'next/head';
-import dynamic from 'next/dynamic';
-
-const Chat = dynamic(() => import('../components/Chat'), {
-  ssr: false,
-});
+import Chat from '@/components/Chat';
 
 export default function Home() {
   return (
     <div className="container">
-      <Head>
-        <title>Realtime Chat App with Ably Chat, Next.js and Netlify</title>
-        <link rel="icon" href="https://static.ably.dev/motif-red.svg?nextjs-netlify" type="image/svg+xml" />
-      </Head>
       <main>
         <h1 className="title">Ably Chat Demo</h1>
         <Chat />
