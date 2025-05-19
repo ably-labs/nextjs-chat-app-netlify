@@ -1,7 +1,5 @@
 # Building a Realtime Chat App with Next.js, Ably, and Netlify
 
-Live example at: <https://next-js-chat-app.vercel.app>
-
 Step by step guide at: <https://ably.com/blog/realtime-chat-app-nextjs-vercel>
 
 This is a demo chat application with [Next.js](https://nextjs.org/) using [Ably](https://ably.com) as the messaging platform.
@@ -10,8 +8,8 @@ This is a demo chat application with [Next.js](https://nextjs.org/) using [Ably]
 
 It demonstrates the use of:
 
-- Pub/sub messaging
-- Ably's React Hooks
+- Pub/sub messaging with Ably Chat
+- Ably Chat's React Hooks
 - Token authentication with Ably
 
 ## Tech stack
@@ -66,7 +64,7 @@ The Netlify development server will spin up and you'll see a demo chat applicati
 
 > Note: You can also use `npm run dev` to run just the Next.js development server without Netlify functions, but for the full experience with serverless functions, use `npm run netlify:dev`.
 
-### TypeScript Support
+### TypeScript support
 
 This project uses TypeScript for type safety. Here are some useful commands for TypeScript development:
 
@@ -91,20 +89,6 @@ In order to deploy your new chat app to Netlify you'll need to:
 5. Add your `ABLY_API_KEY` as an environment variable in the Netlify site settings
 6. Watch your app deploy
 7. Visit the newly created URL in your browser!
-
-## Make it your own
-
-There are a few ways that this example could be extended:
-
-### Add message history
-
-There is currently no chat history in this demo, you'll only see messages that come in after you join the chat. You could expand this demo by using [Ably's rewind feature](https://ably.com/docs/storage-history/history) for up to two minutes of history for free, or with a paid account, for up to ~48 hours.
-
-### Add user names
-
-There aren't any usernames sent with the chat messages. This demo could be extended to introduce a username input box, and to add the current username to messages as they're sent.
-
-The demo uses the randomly generated Ably client Id as a unique identifier - which is how it can detect if it is "me" or "someone else" who sent the message.
 
 ## More info
 
