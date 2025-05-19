@@ -1,18 +1,22 @@
+'use client';
+
 import React, { useEffect, useState, useRef } from 'react';
 import { useMessages } from '@ably/chat/react';
+import { Message } from '@ably/chat';
 import styles from './ChatBox.module.css';
+// Define a simplified Message interface based on how it's used in the component
 
 export default function ChatBox() {
-  const inputBox = useRef(null);
-  const messageEndRef = useRef(null);
+  const inputBox = useRef<HTMLTextAreaElement>(null);
+  const messageEndRef = useRef<HTMLDivElement>(null);
 
-  const [messageText, setMessageText] = useState('');
-  const [messages, setMessages] = useState([]);
+  const [messageText, setMessageText] = useState<string>('');
+  const [messages, setMessages] = useState<Message[]>([]);
   const messageTextIsEmpty = messageText.trim().length === 0;
 
   const { send: sendMessage } = useMessages({
-    listener: (payload) => {
-      const newMessage = payload.message;
+    listener: (event) => {
+      const newMessage = event.message;
       setMessages((prevMessages) => {
         if (prevMessages.some((existingMessage) => existingMessage.isSameAs(newMessage))) {
           return prevMessages;
@@ -31,10 +35,7 @@ export default function ChatBox() {
     },
   });
 
-  const sendChatMessage = async (text) => {
-    if (!sendMessage) {
-      return;
-    }
+  const sendChatMessage = async (text: string) => {
     try {
       await sendMessage({ text: text });
       setMessageText('');
@@ -44,12 +45,12 @@ export default function ChatBox() {
     }
   };
 
-  const handleFormSubmission = (event) => {
+  const handleFormSubmission = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     sendChatMessage(messageText);
   };
 
-  const handleKeyPress = (event) => {
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key !== 'Enter' || event.shiftKey) {
       return;
     }
@@ -82,7 +83,7 @@ export default function ChatBox() {
           value={messageText}
           placeholder={'Type a message...'}
           onChange={(e) => setMessageText(e.target.value)}
-          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyPress}
           className={styles.textarea}
         ></textarea>
         <button type="submit" className={styles.button} disabled={messageTextIsEmpty}>

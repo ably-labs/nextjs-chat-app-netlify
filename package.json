@@ -1,5 +1,5 @@
 {
-  "name": "ably-nextjs-vercel-demo",
+  "name": "ably-nextjs-netlify-demo",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,18 +9,30 @@
     "debug": "node --inspect-brk ./node_modules/next/dist/bin/next",
     "lint": "next lint",
     "format": "prettier --write --ignore-path .gitignore app components",
-    "format:check": "prettier --check --ignore-path .gitignore app components"
+    "format:check": "prettier --check --ignore-path .gitignore app components",
+    "netlify:build": "netlify build",
+    "netlify:dev": "netlify dev",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@ably/chat": "^0.6.0",
-    "ably": "2.8.0",
-    "next": "^14.2.3",
+    "@ably/chat": "^0.7.0",
+    "@netlify/functions": "^3.1.8",
+    "@netlify/plugin-nextjs": "^5.11.1",
+    "ably": "2.9.0",
+    "next": "15.2.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tsx": "^4.7.0"
   },
   "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@types/react": "^18.2.67",
+    "@types/react-dom": "^18.2.22",
     "eslint": "8.57.0",
-    "eslint-config-next": "^13.4.19",
-    "prettier": "^3.2.5"
+    "eslint-config-next": "14.1.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "7.33.2",
+    "netlify-cli": "^19.0.2",
+    "prettier": "^3.5.3"
   }
 }
