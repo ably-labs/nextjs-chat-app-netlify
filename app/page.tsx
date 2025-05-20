@@ -17,7 +17,7 @@ export default function Home() {
           Ably
         </a>
         <a
-          href="https://github.com/ably-labs/NextJS-chat-app"
+          href="https://github.com/ably-labs/nextjs-chat-app-netlify"
           className="github-corner"
           aria-label="View source on GitHub"
         >
