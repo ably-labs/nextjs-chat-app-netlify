@@ -1,8 +1,8 @@
 # Building a Realtime Chat App with Next.js, Ably, and Netlify
 
-Step by step guide at: <https://ably.com/blog/realtime-chat-app-nextjs-vercel>
+Step by step guide at: <https://ably.com/blog/next-js-netlify-ably-chat>
 
-Live demo here: 
+Live demo here: <https://nextjs-ably-chat-app.netlify.app/>
 
 This is a demo chat application with [Next.js](https://nextjs.org/) using [Ably](https://ably.com) as the messaging platform.
 
