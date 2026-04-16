@@ -26,7 +26,7 @@ export default function Chat() {
 
   return (
     <ChatClientProvider client={chatClient}>
-      <ChatRoomProvider id="chat-demo">
+      <ChatRoomProvider name="chat-demo">
         <ChatBox />
       </ChatRoomProvider>
     </ChatClientProvider>
