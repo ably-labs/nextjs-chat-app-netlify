@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
-import { useMessages } from '@ably/chat/react';
-import { Message } from '@ably/chat';
+import { useChatClient, useMessages } from '@ably/chat/react';
+import { ChatMessageEventType, Message } from '@ably/chat';
 import styles from './ChatBox.module.css';
-// Define a simplified Message interface based on how it's used in the component
 
 export default function ChatBox() {
+  const chatClient = useChatClient();
+  const currentClientId = chatClient.clientId;
   const inputBox = useRef<HTMLTextAreaElement>(null);
   const messageEndRef = useRef<HTMLDivElement>(null);
 
@@ -14,15 +15,16 @@ export default function ChatBox() {
   const [messages, setMessages] = useState<Message[]>([]);
   const messageTextIsEmpty = messageText.trim().length === 0;
 
-  const { send: sendMessage } = useMessages({
+  const { sendMessage } = useMessages({
     listener: (event) => {
+      if (event.type !== ChatMessageEventType.Created) return;
       const newMessage = event.message;
       setMessages((prevMessages) => {
-        if (prevMessages.some((existingMessage) => existingMessage.isSameAs(newMessage))) {
+        if (prevMessages.some((existing) => existing.serial === newMessage.serial)) {
           return prevMessages;
         }
 
-        const index = prevMessages.findIndex((existingMessage) => existingMessage.after(newMessage));
+        const index = prevMessages.findIndex((existing) => existing.serial > newMessage.serial);
 
         const newMessages = [...prevMessages];
         if (index === -1) {
@@ -60,8 +62,9 @@ export default function ChatBox() {
 
   const messageElements = messages.map((message, index) => {
     const key = message.serial ?? index;
+    const isSentByMe = message.clientId === currentClientId;
     return (
-      <span key={key} className={styles.message}>
+      <span key={key} className={isSentByMe ? styles.sentMessage : styles.message}>
         {message.text}
       </span>
     );
