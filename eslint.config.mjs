@@ -1,7 +1,8 @@
 import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
 import prettierConfig from "eslint-config-prettier";
 
-export default [
+const config = [
+  { ignores: [".netlify/", ".next/"] },
   ...nextCoreWebVitals,
   prettierConfig,
   {
@@ -11,3 +12,5 @@ export default [
     },
   },
 ];
+
+export default config;
