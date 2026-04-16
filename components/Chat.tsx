@@ -7,22 +7,17 @@ import ChatBox from './ChatBox';
 import React, { useEffect, useState } from 'react';
 
 export default function Chat() {
-  const [chatClient, setChatClient] = useState<ChatClient | null>(null);
-
-  useEffect(() => {
+  const [chatClient] = useState(() => {
     const clientId = `ably-chat-demo-user-${Math.random().toString(36).substring(2, 10)}`;
     const realtimeClient = new Ably.Realtime({ authUrl: `/api/auth?clientId=${clientId}`, clientId });
-    const ablyChatClient = new ChatClient(realtimeClient);
+    return new ChatClient(realtimeClient);
+  });
 
-    setChatClient(ablyChatClient);
+  useEffect(() => {
     return () => {
-      realtimeClient.close();
+      chatClient.realtime.close();
     };
-  }, []);
-
-  if (!chatClient) {
-    return <div>Loading...</div>;
-  }
+  }, [chatClient]);
 
   return (
     <ChatClientProvider client={chatClient}>
