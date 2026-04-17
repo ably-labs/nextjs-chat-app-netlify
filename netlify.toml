@@ -5,6 +5,9 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+[dev]
+  port = 8888
+
 [functions]
   directory = "netlify/functions"
   external_node_modules = ["express"]
