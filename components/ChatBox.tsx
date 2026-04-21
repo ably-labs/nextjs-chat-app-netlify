@@ -23,16 +23,7 @@ export default function ChatBox() {
         if (prevMessages.some((existing) => existing.serial === newMessage.serial)) {
           return prevMessages;
         }
-
-        const index = prevMessages.findIndex((existing) => existing.serial > newMessage.serial);
-
-        const newMessages = [...prevMessages];
-        if (index === -1) {
-          newMessages.push(newMessage);
-        } else {
-          newMessages.splice(index, 0, newMessage);
-        }
-        return newMessages;
+        return [...prevMessages, newMessage].sort((a, b) => (a.serial < b.serial ? -1 : b.serial < a.serial ? 1 : 0));
       });
     },
   });
