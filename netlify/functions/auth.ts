@@ -16,7 +16,7 @@ export async function handler(event: HandlerEvent) {
 
   const now = Math.floor(Date.now() / 1000);
   const claims = {
-    'x-ably-capability': JSON.stringify({ '*': ['*'] }),
+    'x-ably-capability': JSON.stringify({ 'chat-demo:*': ['*'] }),
     'x-ably-clientId': clientId,
     iat: now,
     exp: now + 3600,
