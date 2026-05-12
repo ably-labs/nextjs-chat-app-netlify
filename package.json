@@ -20,7 +20,7 @@
     "@netlify/plugin-nextjs": "^5.11.1",
     "ably": "^2.21.0",
     "jsonwebtoken": "^9.0.3",
-    "next": "15.5.15",
+    "next": "15.5.18",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tsx": "^4.7.0"
